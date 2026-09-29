@@ -1,0 +1,38 @@
+# Streamlit secrets and local config (CRITICAL: Never commit secrets)
+.streamlit/secrets.toml
+secrets.toml
+.streamlit/config.toml
+
+# Environment variables
+.env
+.env.*
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Local media / temporary downloads
+Downloads/
+*.jpg
+*.jpeg
+*.png
+*.pdf
+
+# IDE and Editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
