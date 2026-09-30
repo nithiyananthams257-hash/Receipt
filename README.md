@@ -1,0 +1,71 @@
+🧾 Receipt & Expense Tracker
+
+An AI-powered chat app that turns a photo of a receipt (or a plain text description) into a clean expense record — merchant, date, items, total, and category — and can text you a running summary on WhatsApp.
+
+Built with Streamlit, Gemini (chat + vision), and Twilio (WhatsApp). No OpenCV, no OCR library, no model training required.
+
+Features
+💬 Chat interface — type an expense or attach a receipt photo
+📸 Vision-based receipt reading via Gemini
+🏷️ Auto-categorization (Food, Transport, Shopping, Bills, Health, Entertainment, Other)
+📤 One-click summary sent straight to WhatsApp via Twilio
+🔒 Secrets kept out of version control
+Project Structure
+receipt-tracker/
+├── app.py                        # the app itself
+├── prompts.py                    # the AI's personality, kept separate
+├── requirements.txt              # dependencies
+├── .gitignore                    # keeps secrets.toml out of GitHub
+└── .streamlit/
+    └── secrets.toml.example      # template - copy to secrets.toml and fill in
+Prerequisites
+Python 3.9 or newer
+A free Google AI Studio account (for a Gemini API key)
+A free Twilio account (for the WhatsApp sandbox)
+Setup
+Clone and enter the project folder
+bash
+   git clone <your-repo-url>
+   cd receipt-tracker
+Create and activate a virtual environment
+bash
+   python -m venv venv
+   source venv/bin/activate        # macOS/Linux
+   .\venv\Scripts\Activate.ps1     # Windows PowerShell
+Install dependencies
+bash
+   pip install -r requirements.txt
+Get a Gemini API key Go to aistudio.google.com → Get API key.
+Set up Twilio WhatsApp
+Sign up at twilio.com/try-twilio, copy your Account SID and Auth Token.
+Under Messaging → Try it out → Send a WhatsApp message, note the sandbox number and join code.
+From your test WhatsApp number, send the join message (e.g. join happy-tiger) to the sandbox number. This opt-in expires after ~72 hours of inactivity.
+Under Messaging → Content Template Builder, create a Text template with two variables, e.g.: Hi {{1}}, here's your expense summary:\n\n{{2}} Note its Content SID (starts with HX...).
+Configure secrets Copy the template and fill in your real values:
+bash
+   cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+
+Then edit .streamlit/secrets.toml with your Gemini key, Twilio SID/token, WhatsApp sandbox number, and Content SID.
+
+Running Locally
+bash
+streamlit run app.py
+
+Opens at http://localhost:8501. Onboard with the WhatsApp number that joined your sandbox, try a typed expense, try a receipt photo, then click Send to WhatsApp.
+
+Deploying to Streamlit Community Cloud
+Push the project to GitHub — do not commit .streamlit/secrets.toml.
+Go to share.streamlit.io and sign in with GitHub.
+Click New app, select the repo, branch, and app.py as the entry point.
+In Settings → Secrets, paste the same contents as your local secrets.toml.
+Deploy — you'll get a public URL.
+Notes
+WhatsApp requires an approved Content Template for messages your app sends on its own initiative (like the summary button), since free-form replies only work within a 24-hour window opened by the user.
+If the WhatsApp summary stops sending, your sandbox opt-in may have expired — just re-send the join message.
+Future Ideas
+Monthly budget limits with overspend warnings
+Store expenses in a table and export to CSV
+Structured JSON output from Gemini for category charts
+License
+
+MIT (or your choice)
