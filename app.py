@@ -172,4 +172,14 @@ if user_input:
     with st.spinner("Reading your receipt..."):
         answer = ask_gemini(parts)
     add_message("assistant", "text", answer)
+    with st.spinner("Sending reply to WhatsApp..."):
+        success, info = send_whatsapp(
+            st.session_state.whatsapp_number,
+            st.session_state.name,
+            answer,
+        )
+    if success:
+        st.toast("Chatbot reply sent to WhatsApp")
+    else:
+        st.warning(f"Reply shown here, but WhatsApp sending failed: {info}")
 
